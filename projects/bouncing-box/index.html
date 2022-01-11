@@ -8,7 +8,7 @@
 		.box {
 			width: 70px;
 			height: 70px;
-			background-color: rgb(245, 126, 71);
+			background-color: rgb(245, 175, 71);
 			font-size: 300%;
 			text-align: center;
 			display: block;
@@ -18,12 +18,15 @@
 		}
 		.board{
 			height: 100vh;
+			background-image: url("images/Bees.background.png");
+
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
 </head>
 <body class="board">
+	
 	<!-- HTML for the box -->
 	<div class="box">?</div>
 
@@ -90,7 +93,12 @@
 				positionX = 0;
 				points = points + 1;
 				changeBoxText(points);
-				speed = speed + 3;
+				if(speed > 0 ){
+					speed = speed + 3;
+				}
+				else if(speed < 0){
+					speed = speed - 3;
+				}
 			};
 		})();
 	</script>
