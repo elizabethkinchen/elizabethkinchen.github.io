@@ -38,17 +38,18 @@ var background = function (window) {
             // TODO: 2 - Part 2
             // this fills the background with a obnoxious yellow
             // you should modify this to suit your game
-            var backgroundFill = draw.rect(canvasWidth,groundY,'lightBlue');
+            var backgroundFill = draw.rect(canvasWidth,groundY,'#ffdae9');
             background.addChild(backgroundFill);
             
             // TODO: 3 - Add a moon and starfield
 
             //everytime the loop runs it creates a circle with a random x and y respective to the canvas and added to the canavs
                 for(var i = 0; i <= 160 ; i++){
-                var circle = draw.circle(3,'white','LightGray',2); // creates a variable called circle thaty holds each circle
-                circle.x = canvasWidth*Math.random(); //multiplies canvas width times random decimal between .1 and .99 and assigns it to circle.x
-                circle.y = groundY*Math.random(); //multiplies canvas width times random decimal between .1 and .99 and assigns it to circle.y
-                background.addChild(circle);// adds the circle to the background
+                var star = draw.bitmap('img/star.png');
+                // var circle = draw.circle(3,'white','LightGray',2); // creates a variable called circle thaty holds each circle
+                star.x = canvasWidth*Math.random(); //multiplies canvas width times random decimal between .1 and .99 and assigns it to circle.x
+                star.y = groundY*Math.random(); //multiplies canvas width times random decimal between .1 and .99 and assigns it to circle.y
+                background.addChild(star);// adds the circle to the background
             }
 
             var moon = draw.bitmap('img/moon.png'); // created variable called moon, draw.bitmap draws the image abd stores it in the variable 
@@ -62,7 +63,7 @@ var background = function (window) {
             
             for(var i=0 ; i < 5; i++) {
                 var buildingHeight = 350*Math.random(); // creates varible called buildinHeight that holds the heights of the building
-                var building = draw.rect(75,buildingHeight,'LightBlack'); // creates a varible called building that holds the data for the drawn buildings
+                var building = draw.rect(75, buildingHeight,'LightBlack'); // creates a varible called building that holds the data for the drawn buildings
                 building.x = 200*i; // postions postion of each building 200 pixels from the next building
                 building.y = groundY-buildingHeight; //sets the y of the building off of groundY - buildingHeight
                 background.addChild(building); // adds buildings to the backgrounf so it can be seen
@@ -72,7 +73,7 @@ var background = function (window) {
             // TODO 4: Part 1 - Add a tree
             tree = draw.bitmap('img/tree.png'); // reassigns the drawn image tree to varible tree
             tree.x = 500; // assigns x value to the tree
-            tree.y = groundY - 215; //assigns a y to the tree
+            tree.y = groundY - 195; //assigns a y to the tree
             tree.scaleX = 1; //controls the scale of the tree on the x axis
             tree.scaleY = 1; //controls the scale of the tree on the y axis
             background.addChild(tree); //adds tree to background
