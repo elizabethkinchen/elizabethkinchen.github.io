@@ -63,7 +63,7 @@ var background = function (window) {
             
             for(var i=0 ; i < 5; i++) {
                 var buildingHeight = 350*Math.random(); // creates varible called buildinHeight that holds the heights of the building
-                var building = draw.rect(75, buildingHeight,'LightBlack'); // creates a varible called building that holds the data for the drawn buildings
+                var building = draw.rect(75, buildingHeight,'#f9fcff'); // creates a varible called building that holds the data for the drawn buildings
                 building.x = 200*i; // postions postion of each building 200 pixels from the next building
                 building.y = groundY-buildingHeight; //sets the y of the building off of groundY - buildingHeight
                 background.addChild(building); // adds buildings to the backgrounf so it can be seen
