@@ -22,17 +22,32 @@ var level01 = function (window) {
                 { "type": "sawblade", "x": 1200, "y": groundY - 125 },
                 { "type": "sawblade", "x": 1500, "y": groundY - 10 },
                 { "type": "sawblade", "x": 2000, "y": groundY - 120 },
+                { "type": "sawblade", "x": 2200, "y": groundY - 125 },
+                { "type": "sawblade", "x": 2600, "y": groundY - 10 },
+                { "type": "sawblade", "x": 2800, "y": groundY - 120 },
+                { "type": "sawblade", "x": 3000, "y": groundY - 125 },
+                { "type": "sawblade", "x": 3200, "y": groundY - 10 },
+                { "type": "sawblade", "x": 3500, "y": groundY - 120 },
 
+                { "type": "enemy", "x": 500, "y": groundY - 20},
                 { "type": "enemy", "x": 800, "y": groundY - 20},
-                { "type": "enemy", "x": 1000, "y": groundY - 25},
-                { "type": "enemy", "x": 1500, "y": groundY - 20},
                 { "type": "enemy", "x": 1800, "y": groundY - 25},
                 { "type": "enemy", "x": 2000, "y": groundY - 20},
-                { "type": "enemy", "x": 1800, "y": groundY - 25},
+
+                { "type": "enemy2", "x": 300, "y": groundY - 20},
+                { "type": "enemy2", "x": 1100, "y": groundY - 20},
+                { "type": "enemy2", "x": 1300, "y": groundY - 20},
+                { "type": "enemy2", "x": 1500, "y": groundY - 20},
+                { "type": "enemy2", "x": 2300, "y": groundY - 20},
 
                 { "type": "reward", "x": 700, "y": groundY - 85},
-                { "type": "reward", "x": 850, "y": groundY - 50},
+                { "type": "reward", "x": 850, "y": groundY - 85},
                 { "type": "reward", "x": 1400, "y": groundY - 10},
+                { "type": "reward", "x": 1700, "y": groundY - 10},
+                { "type": "reward", "x": 1900, "y": groundY - 85},
+                { "type": "reward", "x": 2200, "y": groundY - 85},
+
+                { "type": "end", "x": 3700, "y": groundY - 70},
             ]
         };
         window.levelData = levelData;
@@ -77,7 +92,7 @@ var level01 = function (window) {
 
             enemy.onPlayerCollision = function() {
                 console.log('The enemy has hit Halle');
-                game.changeIntegrity(-10);
+                game.changeIntegrity(-20);
              };
             enemy.onProjectileCollision = function() {
                 console.log('The projectile has hit Halle');
@@ -87,12 +102,41 @@ var level01 = function (window) {
                 
             };
         }
+
+        function createSecondEnemy(x, y){
+            var enemy2 = game.createGameItem('enemy2',25); //creating the game item and storing it in the variable reward 
+            var pup = draw.bitmap('img/pup.png');
+            pup.x = -25;
+            pup.y = -25;
+            enemy2.addChild(pup); // add the dog to the reward game item
+            
+            enemy2.x = x;
+            enemy2.y = y;
+
+            game.addGameItem(enemy2); /// adds reward to the game
+
+            enemy2.velocityX = -1; // causes enemy to move 1 pixel to the left on the x position 
+
+            //enemy.rotationalVelocity = 25;
+
+            enemy2.onPlayerCollision = function() {
+                console.log('The enemy2 has hit Halle');
+                game.changeIntegrity(-20);
+             };
+             enemy2.onProjectileCollision = function() {
+                console.log('The projectile has hit Halle');
+                game.changeIntegrity(5);
+                game.increaseScore(50);
+                enemy2.fadeOut();
+                
+            };
+        }
         function createReward(x, y){
             var reward = game.createGameItem('reward',25); //creating the game item and storing it in the variable reward 
             //var blueSquare = draw.rect(50,50,'blue'); //creates rectangle and stores as blueSquare
             var heart = draw.bitmap('img/heart.png');
             heart.x = -20;
-            heart.y = -30;
+            heart.y = -40;
             reward.addChild(heart); // add the blueSquare to the reward game item
             
             reward.x = x;
@@ -114,6 +158,31 @@ var level01 = function (window) {
                 
             };
         }
+        function createEnd(x, y){
+            var end = game.createGameItem('end',25); //creating the game item and storing it in the variable reward 
+            //var blueSquare = draw.rect(50,50,'blue'); //creates rectangle and stores as blueSquare
+            var winner = draw.bitmap('img/winner.png');
+            winner.x = -250;
+            winner.y = -60;
+            end.addChild(winner); // add the blueSquare to the end game item
+            
+            end.x = x;
+            end.y = y;
+
+            game.addGameItem(end); /// adds end to the game
+
+            end.velocityX = -1; // causes end to move 1 pixel to the left on the x position 
+
+            end.onPlayerCollision = function() {
+                console.log('The end has hit Halle');
+                game.changeIntegrity(-1000);
+             };
+             end.onProjectileCollision = function() {
+                console.log('The projectile has hit Halle');
+                game.changeIntegrity(-1000);
+                
+            };
+        }
         
         
             for(var i = 0; i < levelData.gameItems.length; i++){
@@ -125,8 +194,14 @@ var level01 = function (window) {
                 if(gameItem.type === "enemy"){
                     createEnemy(gameItem.x, gameItem.y);
                 }
+                if(gameItem.type === "enemy2"){
+                    createSecondEnemy(gameItem.x, gameItem.y);
+                }
                 if(gameItem.type === "reward"){
                     createReward(gameItem.x, gameItem.y);
+                }
+                if(gameItem.type === "end"){
+                    createEnd(gameItem.x, gameItem.y);
                 }
             }
 
